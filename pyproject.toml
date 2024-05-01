@@ -1,0 +1,24 @@
+[project]
+name = "bamboohr-challenge"
+version = "0.1.0"
+description = "A simple RAG agent."
+authors = [
+    {name = "Caleb Bartholomew", email = "caleb@bclife.biz"},
+]
+dependencies = [
+    "spacy>=3.7.4",
+    "gradio>=4.26.0",
+    "duckdb>=0.10.2",
+    "polars[pyarrow]>=0.20.23",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
