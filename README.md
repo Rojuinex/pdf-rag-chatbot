@@ -47,7 +47,8 @@ $ pdf-rag-chatbot --model gpt-3.5-turbo
 ## Preprocessing
 
 Documents can be preprocessed using `pdf-rag-preprocessor`.  It accepts a single file, or a
-directory.
+directory.  Preprocessed documents will be available to all sessions, where as documents
+uploaded during a session are only available to that session.
 
 ```shell
 $ pdf-rag-preprocessor --help
