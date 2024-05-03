@@ -1,7 +1,7 @@
 [project]
-name = "bamboohr-challenge"
+name = "pdf-rag-chatbot"
 version = "0.1.0"
-description = "A simple RAG agent."
+description = "A simple RAG chatbot that answers questions from a PDF files."
 authors = [
     {name = "Caleb Bartholomew", email = "caleb@bclife.biz"},
 ]
@@ -10,10 +10,24 @@ dependencies = [
     "gradio>=4.26.0",
     "duckdb>=0.10.2",
     "polars[pyarrow]>=0.20.23",
+    "click>=8.1.7",
+    "pysbd>=0.3.4",
+    "pypdf[image]>=4.2.0",
+    "pdfminer-six>=20231228",
+    "pydantic>=2.7.1",
+    "sentence-transformers>=2.7.0",
+    "openai>=1.25.1",
+    "langchain>=0.1.17",
+    "orjson>=3.10.2",
+    "langchain-openai>=0.1.5",
+    "loguru>=0.7.2",
 ]
 requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
+
+[project.scripts]
+pdf-rag-chatbot = "pdf_rag_chatbot.cli.pdf_rag_chatbot:main"
 
 [build-system]
 requires = ["pdm-backend"]
@@ -22,3 +36,11 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest>=8.2.0",
+]
+ipython = [
+    "ipython>=8.24.0",
+]

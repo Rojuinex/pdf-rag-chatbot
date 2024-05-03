@@ -1,0 +1,1 @@
+from pdf_rag_chatbot.db.setup_database import setup_database
