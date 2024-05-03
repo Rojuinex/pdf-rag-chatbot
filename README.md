@@ -30,7 +30,7 @@ Options:
 
 By default the application will assume Ollama and llama3 are installed.  You can do that by:
 
-1. Download (Ollama here)[https://ollama.com/].
+1. Download [Ollama here](https://ollama.com/).
 2. Start the server with llama3 `ollama run llama3`
 
 If you have an OpenAI API key and want to use that instead you can run the application by
