@@ -1,14 +1,19 @@
 import asyncio
+from typing import Callable
 
 from duckdb import DuckDBPyConnection
 
-from pdf_rag_chatbot.data_pipeline.messages import FileUploaded
+from pdf_rag_chatbot.data_pipeline.messages import (
+    DeadLetterMessage,
+    FileUploaded,
+)
 from pdf_rag_chatbot.data_pipeline.steps import (
     Ingest,
     NLP,
     Embed,
 )
 
+DeadLetterHandler = Callable[[DeadLetterMessage], None]
 
 class TextPipeline:
     def __init__(
@@ -16,8 +21,6 @@ class TextPipeline:
         db: DuckDBPyConnection,
     ):
         self.db = db
-
-
 
         self.ingest = Ingest(db)
         self.nlp = NLP(db)
@@ -49,7 +52,9 @@ class TextPipeline:
         self.deadletter_queue = asyncio.Queue()
         self.shutdown_event = asyncio.Event()
 
-        await self.run(self.input_queue, self.deadletter_queue, self.shutdown_event)
+        return asyncio.create_task(
+            self.run(self.input_queue, self.deadletter_queue, self.shutdown_event)
+        )
 
     async def stop(self):
         """Stop the pipeline."""
@@ -58,6 +63,15 @@ class TextPipeline:
     async def put(self, req: FileUploaded):
         """Put a request into the pipeline."""
         await self.input_queue.put(req)
+
+    async def add_deadletter_handler(self, handler: DeadLetterHandler):
+        """Add a deadletter handler to the pipeline."""
+        async def _handler():
+            while not self.shutdown_event.is_set():
+                msg = await self.deadletter_queue.get()
+                await handler(msg)
+
+        return asyncio.create_task(_handler())
 
     async def run(
         self,

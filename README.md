@@ -16,7 +16,7 @@ A simple RAG chatbot to answer questions about your documents.
 
 ## Usage
 
-Launch the server using:
+Launch the server using `pdf-rag-chatbot`.
 
 ```shell
 $ pdf-rag-chatbot --help
@@ -42,6 +42,20 @@ and may need to be tweaked to get good performance when specifying a different m
 ```shell
 $  export OPENAI_API_KEY=`...`
 $ pdf-rag-chatbot --model gpt-3.5-turbo
+```
+
+## Preprocessing
+
+Documents can be preprocessed using `pdf-rag-preprocessor`.  It accepts a single file, or a
+directory.
+
+```shell
+$ pdf-rag-preprocessor --help
+Usage: pdf-rag-preprocessor [OPTIONS] FILE_PATH
+
+Options:
+  --db TEXT  Path to the duckdb database file.  [default: warehouse.duckdb]
+  --help     Show this message and exit.
 ```
 
 ## Common issues

@@ -28,6 +28,7 @@ license = {text = "MIT"}
 
 [project.scripts]
 pdf-rag-chatbot = "pdf_rag_chatbot.cli.pdf_rag_chatbot:main"
+pdf-rag-preprocessor = "pdf_rag_chatbot.cli.pdf_rag_preprocessor:main"
 
 [build-system]
 requires = ["pdm-backend"]
