@@ -1,9 +1,9 @@
-from langchain_core.language_models import BaseLLM
+from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import ChatPromptTemplate
 
 
 class ResponseAgent:
-	def __init__(self, llm: BaseLLM):
+	def __init__(self, llm: BaseChatModel):
 		self.llm = llm
 		self.prompt = ChatPromptTemplate.from_messages([
 			(
@@ -19,4 +19,5 @@ class ResponseAgent:
 		self.chain = self.prompt | self.llm
 
 	def __call__(self, question: str, search_results: str) -> str:
-		return self.chain.invoke({"question": question, "search_results": search_results})
+		response = self.chain.invoke({"question": question, "search_results": search_results})
+		return response.content

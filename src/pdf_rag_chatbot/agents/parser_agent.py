@@ -2,12 +2,12 @@ from typing import List, Optional
 
 import orjson
 from pydantic import BaseModel
-from langchain_core.language_models import BaseLLM
+from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import ChatPromptTemplate
 
 
 class ParserAgent:
-	def __init__(self, llm: BaseLLM):
+	def __init__(self, llm: BaseChatModel):
 		self.llm = llm
 		self.prompt = ChatPromptTemplate.from_messages([
 			(
@@ -27,7 +27,7 @@ class ParserAgent:
 
 	def __call__(self, question: str) -> Optional["SearchTerms"]:
 		response = self.chain.invoke({"input": question})
-		search_terms = SearchTerms(**orjson.loads(response))
+		search_terms = SearchTerms(**orjson.loads(response.content))
 		
 		if not search_terms.keywords and not search_terms.phrases and not search_terms.entities:
 			return None
