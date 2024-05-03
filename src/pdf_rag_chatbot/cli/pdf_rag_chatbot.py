@@ -8,7 +8,7 @@ import click
 logger.remove()
 logger.add(sys.stderr, level=os.environ.get("LOGURU_LEVEL", "INFO"))
 
-@click.command()
+@click.command(context_settings={'show_default': True})
 @click.option("--port", default=5000, help="Port to run the server on.")
 @click.option("--db", default="warehouse.duckdb", help="Path to the duckdb database file.")
 @click.option("--model", default="llama3", help="The language model to use for agents.")

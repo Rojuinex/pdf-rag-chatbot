@@ -10,8 +10,9 @@ A simple RAG chatbot to answer questions about your documents.
 ## Installation
 
 1. Create a virtual environment `python -m venv .venv`
-2. Activate environment `source .venv/bin/activate`
-3. Install dependencies `pdm install`
+2. Activate environment `source .venv/bin/activate`.
+3. Install dependencies `pdm install`.
+4. Download spaCy model `python -m spacy download en_core_web_trf`.
 
 ## Usage
 
@@ -41,4 +42,12 @@ and may need to be tweaked to get good performance when specifying a different m
 ```shell
 $  export OPENAI_API_KEY=`...`
 $ pdf-rag-chatbot --model gpt-3.5-turbo
+```
+
+## Common issues
+
+### spaCy complains about not being able to find the pip package in the virtual environment
+
+```sh
+$ python -m ensurepip
 ```
